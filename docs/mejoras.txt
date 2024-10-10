@@ -1,0 +1,9 @@
+-paginación en comboboxes (por ej. clientes en la edición de envíos)
+-el connection string nunca debería haber estado en el web.config
+-el campo EstadoEnvio debería estar en su propia tabla, y usarse una FK desde la tabla Envios
+-el campo ProveedorPaqueteria debería tener su propia tabla también probablemente
+-hay muchas cosas que pulir en las clases helpers de nhibernate y las clases base de las entidades (entidadBase). Yo las simplifiqué para que simplemente funcionen.
+Por ej. entidadBase podría tener un parametro genérico para el tipo del ID
+-en la grilla de envíos se podría paginar en la base de datos en vez de la UI
+-ActualizarEstado debe hacerse dentro de una transaccion
+-se pueden optimizar las consultas de nhibernate para traer todos los datos a usar en un solo viaje

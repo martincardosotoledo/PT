@@ -28,9 +28,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "website", "website\", "{8B2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF669352-9E18-402A-BC43-F521AD22A4BD}"
 	ProjectSection(SolutionItems) = preProject
-		..\docs\instalación.txt = ..\docs\instalación.txt
-		..\docs\mejoras.txt = ..\docs\mejoras.txt
-		..\docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf = ..\docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf
+		docs\instalación.txt = docs\instalación.txt
+		docs\mejoras.txt = docs\mejoras.txt
+		docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf = docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Services", "PT.Services\PT.Services.vbproj", "{102CDD3E-EC0D-4A0C-BC8A-7478329DE2E4}"
