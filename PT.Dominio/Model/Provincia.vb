@@ -8,11 +8,3 @@ Public Class Provincia
 
 End Class
 
-
-Public Class ProvinciaValidator
-    Inherits AbstractValidator(Of Provincia)
-
-    Public Sub New()
-        RuleFor(Function(x) x.Nombre).NotEmpty().MaximumLength(50)
-    End Sub
-End Class

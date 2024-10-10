@@ -11,8 +11,8 @@ Public Class EnvioMap
         Map(Function(x) x.DireccionDestino, "DireccionDestino")
         References(Function(x) x.Provincia, "ProvinciaID")
         Map(Function(x) x.ProveedorPaqueteria, "ProveedorPaqueteria")
-        Map(Function(x) x.EstadoEnvio, "EstadoEnvio")
-        Map(Function(x) x.FechaEnvio, "FechaEnvio")
+        Map(Function(x) x.Estado, "EstadoEnvio")
+        Map(Function(x) x.Fecha, "FechaEnvio")
         Map(Function(x) x.CodigoSeguimiento, "CodigoSeguimiento")
 
         HasMany(Function(x) x.Detalle).AsBag().Inverse().[Not].KeyNullable().[Not].KeyUpdate().KeyColumn("EnvioID").Cascade.AllDeleteOrphan().BatchSize(200)

@@ -3,14 +3,6 @@
 <%@ Register Assembly="DevExpress.Web.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
 <!DOCTYPE html>
-<script runat="server">
-
-    Protected Sub gvEnvios_DetailRowExpandedChanged(sender As Object, e As ASPxGridViewDetailRowEventArgs)
-
-    End Sub
-</script>
-
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Envíos</title>
@@ -28,7 +20,7 @@
             if (urlParams !== undefined && urlParams !== null)
                 url += urlParams;
 
-            window.open(url, '_blank');
+            window.open(url, '_self');
         }
 
         // almacena el envío sobre el que se está operando actualmente
@@ -47,7 +39,7 @@
             else if (popCambiarEstado.cpEstadoActualizado) {
                 delete popCambiarEstado.cpEstadoActualizado;
                 popCambiarEstado.Hide();
-                gvEnvios.PerformCallback();
+                gvEnvios.Refresh();
             }
         }
 
@@ -70,13 +62,16 @@
             <dx:ASPxGridView ID="gvEnvios" runat="server" ClientInstanceName="gvEnvios" Caption="Envíos"
                 KeyFieldName="EnvioID"
                 EnableDetailRows="true"
+                Settings-ShowTitlePanel="true"
                 OnDataBinding="gvEnvios_DataBinding"
-                OnRowDeleting="gvEnvios_RowDeleting" 
-                OnDetailRowExpandedChanged="gvEnvios_DetailRowExpandedChanged">
+                OnRowDeleting="gvEnvios_RowDeleting">
                 <SettingsBehavior EnableRowHotTrack="true" ConfirmDelete="true" />
                 <SettingsPager Mode="ShowPager" PageSize="10" />
                 <Settings ShowFilterRow="true" AutoFilterCondition="Contains" />
                 <SettingsDetail ShowDetailRow="true" ShowDetailButtons="true" />
+                <Styles>
+                    <TitlePanel BorderTop-BorderStyle="None"></TitlePanel>
+                </Styles>
                 <SettingsCommandButton>
                     <DeleteButton>
                         <Image Url="~/imagenes/Delete.Ico" Height="15" Width="15"></Image>
@@ -84,8 +79,10 @@
                 </SettingsCommandButton>
                 <SettingsText ConfirmDelete="Se dispone a eliminar el envío. ¿Está seguro?" />
                 <Columns>
+                    <dx:GridViewDataDateColumn Caption="Fecha" FieldName="Fecha" SortIndex="0" SortOrder="Descending"></dx:GridViewDataDateColumn>
                     <dx:GridViewDataTextColumn Caption="Cliente" FieldName="Cliente"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Provincia" FieldName="Provincia"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Estado" FieldName="Estado"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataColumn Caption="Con detalle" FieldName="ConDetalle">
                         <DataItemTemplate>
                             <%#If(CBool(DataBinder.Eval(Container.DataItem, "ConDetalle")), "&#10003;", "") %>
@@ -93,7 +90,7 @@
                     </dx:GridViewDataColumn>
                     <dx:GridViewDataColumn>
                         <DataItemTemplate>
-                            <dx:ASPxButton ID="btnActualizarEstado" runat="server" Text="Actualizar estado" AutoPostBack="false" UseSubmitBehavior="false" 
+                            <dx:ASPxButton ID="btnActualizarEstado" runat="server" Text="Actualizar estado" AutoPostBack="false" UseSubmitBehavior="false"
                                 OnInit="btnActualizarEstado_Init">
                                 <ClientSideEvents Click="btnActualizarEstado_Click" />
                             </dx:ASPxButton>
@@ -112,6 +109,14 @@
                     </dx:GridViewCommandColumn>
                 </Columns>
                 <Templates>
+                    <TitlePanel>
+                        <div style="text-align: left">
+                            <dx:ASPxButton runat="server" ID="btnNuevoEnvio" Text="Nuevo envío" AutoPostBack="false" UseSubmitBehavior="false"
+                                ClientSideEvents-Click="function(s, e){ nuevoEnvio(); }">
+                                <Image Url="~/imagenes/add.ico" Height="15" Width="15"></Image>
+                            </dx:ASPxButton>
+                        </div>
+                    </TitlePanel>
                     <DetailRow>
                         <dx:ASPxGridView ID="gvDetalleEnvio" runat="server"
                             OnBeforePerformDataSelect="gvDetalleEnvio_BeforePerformDataSelect">

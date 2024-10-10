@@ -47,6 +47,12 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.5.1.0\lib\net462\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=6.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.6.0.0\lib\net462\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -63,8 +69,10 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -121,6 +129,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PT.Common\PT.Common.vbproj">
+      <Project>{711C03B6-A1B0-4D51-97AA-CFB073EF42CD}</Project>
+      <Name>PT.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PT.DataAccess\PT.Data.vbproj">
       <Project>{35A0A3D5-B232-453F-8EF0-4B3D2307336E}</Project>
       <Name>PT.Data</Name>

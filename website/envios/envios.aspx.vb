@@ -22,7 +22,7 @@ Partial Class envios_frmEnvios
     End Sub
 
     Protected Sub gvEnvios_DataBinding(sender As Object, e As EventArgs)
-        gvEnvios.DataSource = New EnviosServices().TraerEnviosParaListar()
+        gvEnvios.DataSource = New EnvioService().TraerEnviosParaListar()
     End Sub
 
     Protected Sub gvEnvios_RowDeleting(sender As Object, e As Data.ASPxDataDeletingEventArgs)
@@ -30,15 +30,15 @@ Partial Class envios_frmEnvios
 
         Dim envioID As Integer = Convert.ToInt32(e.Keys(gvEnvios.KeyFieldName))
 
-        Call New EnviosServices().Eliminar(envioID)
+        Call New EnvioService().Eliminar(envioID)
     End Sub
     Protected Sub gvDetalleEnvio_BeforePerformDataSelect(sender As Object, e As EventArgs)
         Dim grillaDetalle As ASPxGridView = DirectCast(sender, ASPxGridView)
-        grillaDetalle.DataSource = New EnviosServices().TraerDetalle(Convert.ToInt32(grillaDetalle.GetMasterRowKeyValue()))
+        grillaDetalle.DataSource = New EnvioService().TraerDetalle(Convert.ToInt32(grillaDetalle.GetMasterRowKeyValue()))
     End Sub
 
     Protected Sub cmbEstado_DataBinding(sender As Object, e As EventArgs)
-        cmbEstado.DataSource = New EnviosServices().TraerEstados()
+        cmbEstado.DataSource = New EnvioService().TraerEstados()
     End Sub
 
     Protected Sub btnActualizarEstado_Init(sender As Object, e As EventArgs)
@@ -51,11 +51,11 @@ Partial Class envios_frmEnvios
 
     Protected Sub popCambiarEstado_WindowCallback(source As Object, e As PopupWindowCallbackArgs)
         If e.Parameter.StartsWith("ACTUALIZAR_ESTADO") Then
-            Call New EnviosServices().ActualizarEstado(Integer.Parse(e.Parameter.Split("|")(1)), cmbEstado.Value)
+            Call New EnvioService().ActualizarEstado(Integer.Parse(e.Parameter.Split("|")(1)), cmbEstado.Value)
 
             popCambiarEstado.JSProperties.Add("cpEstadoActualizado", 1)
         Else
-            cmbEstado.Value = New EnviosServices().TraerEstado(Integer.Parse(e.Parameter))
+            cmbEstado.Value = New EnvioService().TraerEstado(Integer.Parse(e.Parameter))
 
             popCambiarEstado.JSProperties.Add("cpPopupCambioEstadoEnlazado", 1)
         End If

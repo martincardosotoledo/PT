@@ -44,6 +44,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=11.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -64,7 +65,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnviosServices.vb" />
+    <Compile Include="ClienteServices.vb" />
+    <Compile Include="EnvioService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -80,6 +82,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ProvinciaService.vb" />
     <Compile Include="ServicioBase.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +106,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\PT.Common\PT.Common.vbproj">
+      <Project>{711C03B6-A1B0-4D51-97AA-CFB073EF42CD}</Project>
+      <Name>PT.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PT.DataAccess\PT.Data.vbproj">
       <Project>{35A0A3D5-B232-453F-8EF0-4B3D2307336E}</Project>
       <Name>PT.Data</Name>

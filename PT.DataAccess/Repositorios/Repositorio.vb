@@ -42,7 +42,6 @@ Public MustInherit Class Repositorio(Of T As {EntidadBase})
         Return query.List()
     End Function
 
-    <DebuggerStepThrough>
     Public Function LoadById(ByVal entityId As Integer) As T
         Return GetSession().Load(Of T)(entityId)
     End Function

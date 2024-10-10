@@ -7,3 +7,14 @@ Por ej. entidadBase podría tener un parametro genérico para el tipo del ID
 -en la grilla de envíos se podría paginar en la base de datos en vez de la UI
 -ActualizarEstado debe hacerse dentro de una transaccion
 -se pueden optimizar las consultas de nhibernate para traer todos los datos a usar en un solo viaje
+-agregar httpmodule para que nhibernate descarte los cambios a sesiones con cambios no comitteados
+-paginación en la grilla de envios
+-poner cómo título de página el envío en edición
+-centralizar textos como el "Elegir" de los combos
+-en vez de traer toda la entidad como "Provincia" podría traerse una proyección pára los combos. Y así con el resto.
+-y  el manejo de errores centralizado?
+-no suelo usar los filtros automaticos de la grilla de devexpress. Ahora lo hice sólo por simplicidad
+-logging, manejo  global de errores, manejo de concurrencia (por ej. no editar un envio que se elimino en otro lado)
+-mostrar los errores de forma más bonita que en una lista hecha a mano
+-capturar todos los errores y no solo ValidationException. Por ej. error en la conexxion al servidor, un handler que informe de un error general
+-agregué algunas columnas más
