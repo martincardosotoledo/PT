@@ -1,5 +1,6 @@
 Algunas de las mejoras que se me fueron ocurriendo (seguramente hay muchas más, no anoté todo):
 
+-en vez de usar un cuadro de dialogo nativo del navegador, usar popups no intrusivos
 -paginación en comboboxes (por ej. clientes en la edición de envíos)
 -el connection string nunca debería haber estado en el web.config
 -el campo EstadoEnvio debería estar en su propia tabla, y usarse una FK desde la tabla Envios
