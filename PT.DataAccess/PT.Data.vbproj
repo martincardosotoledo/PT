@@ -135,9 +135,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PT.Common\PT.Common.vbproj">
+    <ProjectReference Include="..\PT.Common\PT.Comun.vbproj">
       <Project>{711c03b6-a1b0-4d51-97aa-cfb073ef42cd}</Project>
-      <Name>PT.Common</Name>
+      <Name>PT.Comun</Name>
     </ProjectReference>
     <ProjectReference Include="..\PT.Dominio\PT.Dominio.vbproj">
       <Project>{2222bdbe-ed8c-4dce-b8b4-044dba265dda}</Project>

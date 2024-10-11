@@ -12,10 +12,28 @@ Partial Class envios_envio_edicion
             cmbProvincia.DataBind()
 
             If Me.IdEnvio.HasValue Then
-                _EnlazarEnvio()
+                Dim envioDTO As EnvioEdicionVistaDTO = New EnvioService().TraerParaEdicion(Me.IdEnvio.Value)
+
+                _EnlazarEnvio(envioDTO)
+
+                Me.Detalle = (From itemDTO In envioDTO.Detalle
+                              Select New ItemEnvioEdicionDTOParaGrilla With {
+                                  .ID = itemDTO.ID,
+                                  .DescripcionBulto = itemDTO.DescripcionBulto,
+                                  .Peso = itemDTO.Peso,
+                                  .Dimensiones = itemDTO.Dimensiones
+                             }).ToList()
+
+
+                hTitulo.InnerText = "Envío - edición"
             Else
                 Me.Detalle = New List(Of ItemEnvioEdicionDTOParaGrilla)
+
+                hTitulo.InnerText = "Alta de nuevo envío"
             End If
+
+            gvDetalleEnvio.DataBind()
+
         End If
     End Sub
 
@@ -57,9 +75,8 @@ Partial Class envios_envio_edicion
         End Property
     End Class
 
+    Private Sub _EnlazarEnvio(envioDTO As EnvioEdicionVistaDTO)
 
-    Private Sub _EnlazarEnvio()
-        Dim envioDTO As EnvioEdicionVistaDTO = New EnvioService().TraerParaEdicion(Me.IdEnvio.Value)
 
         cmbCliente.Value = envioDTO.ClienteID
         txtDireccion.Value = envioDTO.DireccionDestino
@@ -69,15 +86,6 @@ Partial Class envios_envio_edicion
         lblCodigoSeguimiento.Value = envioDTO.CodigoSeguimiento
         lblEstado.Value = envioDTO.EstadoEnvio
 
-        Me.Detalle = (From itemDTO In envioDTO.Detalle
-                      Select New ItemEnvioEdicionDTOParaGrilla With {
-                          .ID = itemDTO.ID,
-                          .DescripcionBulto = itemDTO.DescripcionBulto,
-                          .Peso = itemDTO.Peso,
-                          .Dimensiones = itemDTO.Dimensiones
-                     }).ToList()
-
-        gvDetalleEnvio.DataBind()
     End Sub
 
     Protected Sub cmbCliente_DataBinding(sender As Object, e As EventArgs)

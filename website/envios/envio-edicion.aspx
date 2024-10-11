@@ -49,7 +49,7 @@
                     <dx:LayoutItem ShowCaption="False" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <h3 style="text-align: center">Envío - edición</h3>
+                                <h3 runat="server" id="hTitulo" style="text-align: center"></h3>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -155,7 +155,7 @@
                                         <UpdateButton Text="Actualizar" RenderMode="Link"></UpdateButton>
                                         <CancelButton Text="Cancelar" RenderMode="Link"></CancelButton>
                                         <DeleteButton>
-                                            <Image Url="~/imagenes/Delete.Ico"
+                                            <Image Url="~/imagenes/delete.png"
                                                 Height="15"
                                                 Width="15">
                                             </Image>
@@ -171,7 +171,7 @@
                                         <dx:GridViewCommandColumn ShowEditButton="true" ButtonRenderMode="Button">
                                             <HeaderStyle HorizontalAlign="Center" />
                                             <HeaderTemplate>
-                                                <dx:ASPxButton runat="server" ID="e" Text="" AutoPostBack="false" UseSubmitBehavior="false" RenderMode="Link" Visible="<%#Not gvDetalleEnvio.IsEditing %>"
+                                                <dx:ASPxButton runat="server" ID="e" Text="" AutoPostBack="false" UseSubmitBehavior="false" RenderMode="Link" Visible="<%#Not gvDetalleEnvio.IsEditing %>" CausesValidation="false"
                                                     ClientSideEvents-Click="function(s, e){ gvDetalleEnvio.AddNewRow(); }">
                                                     <Image Url="~/imagenes/add.ico" Height="15" Width="15"></Image>
                                                 </dx:ASPxButton>

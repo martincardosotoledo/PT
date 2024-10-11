@@ -1,0 +1,20 @@
+Tecnologías usadas:
+ASP .Net Webforms
+Devexpress control suite
+Nhibernate y FluentNHibernatex
+FluentValidation
+Castle Windsor (como contenedor de servicios)
+
+Arquitectura:
+
+Aplicación monolítica en capas:
+-Frontend (website): Website hecho con ASP .NET Webforms. Sólo consume la capa de servicios
+-Capa de servicios (PT.Servicios): se encarga de orquestar la interacción entre el cliente de la aplicación (en este caso el website) con el dominio de la aplicación.
+-Capa de dominio (PT.Dominio): representa el core del negocio. Es agnóstica de la implementación de la persistencia
+-Capa de acceso a datos (PT.Data): implementa la persistencia de los datos en la base de datos
+
+Proyectos adicionales:
+-PT.Inicializacion: se encarga de inicializar la aplicación. Puede tener dependencia de cualquiera de los demás proyectos
+-PT.Comun: clases e interfaces comunes para toda la aplicación
+-PT.DTOs: contiene DTOs compartidos entre capas, que están aquí para no generar dependencias innecesarias
+

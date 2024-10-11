@@ -1,7 +1,10 @@
 ﻿Imports PT.Common
 
 Public MustInherit Class ServicioBase
-
+    ''' <summary>
+    ''' Método wrapper que ejecuta dentro de una transacción el método especificado.
+    ''' </summary>
+    ''' <param name="action">Método a ejecutar</param>
     Protected Sub UnitOfWork(ByVal action As Action)
         UnitOfWork(action, False)
     End Sub

@@ -28,12 +28,14 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "website", "website\", "{8B2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF669352-9E18-402A-BC43-F521AD22A4BD}"
 	ProjectSection(SolutionItems) = preProject
+		docs\db-script.sql = docs\db-script.sql
+		documentacion del sistema.txt = documentacion del sistema.txt
 		docs\instalación.txt = docs\instalación.txt
 		docs\mejoras.txt = docs\mejoras.txt
 		docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf = docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf
 	EndProjectSection
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Services", "PT.Services\PT.Services.vbproj", "{102CDD3E-EC0D-4A0C-BC8A-7478329DE2E4}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Servicios", "PT.Services\PT.Servicios.vbproj", "{102CDD3E-EC0D-4A0C-BC8A-7478329DE2E4}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Dominio", "PT.Dominio\PT.Dominio.vbproj", "{2222BDBE-ED8C-4DCE-B8B4-044DBA265DDA}"
 EndProject
@@ -41,7 +43,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Data", "PT.DataAccess\PT
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.DTOs", "PT.DTOs\PT.DTOs.vbproj", "{BBA19C62-3778-41E3-90CA-BFD3B55D3D54}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Common", "PT.Common\PT.Common.vbproj", "{711C03B6-A1B0-4D51-97AA-CFB073EF42CD}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Comun", "PT.Common\PT.Comun.vbproj", "{711C03B6-A1B0-4D51-97AA-CFB073EF42CD}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PT.Inicializacion", "PT.Inicializacion\PT.Inicializacion.vbproj", "{98700551-CC13-4473-8D98-21366DB94D06}"
 EndProject

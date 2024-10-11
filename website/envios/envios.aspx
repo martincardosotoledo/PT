@@ -23,7 +23,6 @@
             window.open(url, '_self');
         }
 
-        // almacena el envío sobre el que se está operando actualmente
         var envioID = null;
 
         function btnActualizarEstado_Click(s, e) {
@@ -62,7 +61,6 @@
             <dx:ASPxGridView ID="gvEnvios" runat="server" ClientInstanceName="gvEnvios" Caption="Envíos"
                 KeyFieldName="EnvioID"
                 EnableDetailRows="true"
-                Settings-ShowTitlePanel="true"
                 OnDataBinding="gvEnvios_DataBinding"
                 OnRowDeleting="gvEnvios_RowDeleting">
                 <SettingsBehavior EnableRowHotTrack="true" ConfirmDelete="true" />
@@ -74,29 +72,21 @@
                 </Styles>
                 <SettingsCommandButton>
                     <DeleteButton>
-                        <Image Url="~/imagenes/Delete.Ico" Height="15" Width="15"></Image>
+                        <Image Url="~/imagenes/Delete.png" Height="15" Width="15"></Image>
                     </DeleteButton>
                 </SettingsCommandButton>
                 <SettingsText ConfirmDelete="Se dispone a eliminar el envío. ¿Está seguro?" />
                 <Columns>
-                    <dx:GridViewDataDateColumn Caption="Fecha" FieldName="Fecha" SortIndex="0" SortOrder="Descending"></dx:GridViewDataDateColumn>
-                    <dx:GridViewDataTextColumn Caption="Cliente" FieldName="Cliente"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Provincia" FieldName="Provincia"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Estado" FieldName="Estado"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataColumn Caption="Con detalle" FieldName="ConDetalle">
-                        <DataItemTemplate>
-                            <%#If(CBool(DataBinder.Eval(Container.DataItem, "ConDetalle")), "&#10003;", "") %>
-                        </DataItemTemplate>
-                    </dx:GridViewDataColumn>
                     <dx:GridViewDataColumn>
-                        <DataItemTemplate>
-                            <dx:ASPxButton ID="btnActualizarEstado" runat="server" Text="Actualizar estado" AutoPostBack="false" UseSubmitBehavior="false"
-                                OnInit="btnActualizarEstado_Init">
-                                <ClientSideEvents Click="btnActualizarEstado_Click" />
+                        <HeaderStyle HorizontalAlign="Center" />
+                        <HeaderTemplate>
+
+                            <dx:ASPxButton runat="server" ID="btnNuevoEnvio" Text="" AutoPostBack="false" UseSubmitBehavior="false" RenderMode="Link" ToolTip="Nuevo envío"
+                                ClientSideEvents-Click="function(s, e){ nuevoEnvio(); }">
+                                <Image Url="~/imagenes/add.ico" Height="18" Width="18"></Image>
                             </dx:ASPxButton>
-                        </DataItemTemplate>
-                    </dx:GridViewDataColumn>
-                    <dx:GridViewDataColumn>
+
+                        </HeaderTemplate>
                         <DataItemTemplate>
                             <dx:ASPxButton ID="btnEditar" runat="server" Text="" AutoPostBack="false" UseSubmitBehavior="false" RenderMode="Link"
                                 OnInit="btnEditar_Init">
@@ -105,24 +95,33 @@
                             </dx:ASPxButton>
                         </DataItemTemplate>
                     </dx:GridViewDataColumn>
+                    <dx:GridViewDataDateColumn Caption="Fecha" FieldName="Fecha" SortIndex="0" SortOrder="Descending"></dx:GridViewDataDateColumn>
+                    <dx:GridViewDataTextColumn Caption="Cliente" FieldName="Cliente"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Provincia" FieldName="Provincia"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Estado" FieldName="Estado"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataCheckColumn Caption="Con detalle" FieldName="ConDetalle" Width="90">
+                        <DataItemTemplate>
+                            <%#If(CBool(DataBinder.Eval(Container.DataItem, "ConDetalle")), "&#10003;", "") %>
+                        </DataItemTemplate>
+                    </dx:GridViewDataCheckColumn>
+                    <dx:GridViewDataColumn>
+                        <DataItemTemplate>
+                            <dx:ASPxButton ID="btnActualizarEstado" runat="server" Text="Actualizar estado" AutoPostBack="false" UseSubmitBehavior="false"
+                                OnInit="btnActualizarEstado_Init">
+                                <ClientSideEvents Click="btnActualizarEstado_Click" />
+                            </dx:ASPxButton>
+                        </DataItemTemplate>
+                    </dx:GridViewDataColumn>
                     <dx:GridViewCommandColumn ButtonType="Image" ShowDeleteButton="true" Width="20">
                     </dx:GridViewCommandColumn>
                 </Columns>
                 <Templates>
-                    <TitlePanel>
-                        <div style="text-align: left">
-                            <dx:ASPxButton runat="server" ID="btnNuevoEnvio" Text="Nuevo envío" AutoPostBack="false" UseSubmitBehavior="false"
-                                ClientSideEvents-Click="function(s, e){ nuevoEnvio(); }">
-                                <Image Url="~/imagenes/add.ico" Height="15" Width="15"></Image>
-                            </dx:ASPxButton>
-                        </div>
-                    </TitlePanel>
                     <DetailRow>
-                        <dx:ASPxGridView ID="gvDetalleEnvio" runat="server" Caption="Detalle"
+                        <dx:ASPxGridView ID="gvDetalleEnvio" runat="server" Caption="Bultos"
                             OnBeforePerformDataSelect="gvDetalleEnvio_BeforePerformDataSelect">
                             <SettingsBehavior EnableRowHotTrack="true" />
                             <SettingsPager Mode="ShowAllRecords"></SettingsPager>
-                                <Settings ShowFooter="true" />
+                            <Settings ShowFooter="true" />
                             <Columns>
                                 <dx:GridViewDataTextColumn Caption="Descripción" FieldName="DescripcionBulto" SortIndex="0" SortOrder="Ascending">
                                 </dx:GridViewDataTextColumn>
@@ -132,7 +131,7 @@
                                 </dx:GridViewDataTextColumn>
                             </Columns>
                             <TotalSummary>
-                                <dx:ASPxSummaryItem SummaryType="Sum" DisplayFormat="{0:N2} kg"  FieldName="Peso" />
+                                <dx:ASPxSummaryItem SummaryType="Sum" DisplayFormat="{0:N2} kg" FieldName="Peso" />
                             </TotalSummary>
                         </dx:ASPxGridView>
                     </DetailRow>

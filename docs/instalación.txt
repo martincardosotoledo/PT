@@ -1,1 +1,8 @@
--Web Deploy 4.0
+Base de datos:
+-La base de datos es Sql Server con compatibility level 160 (sql server 2022)
+-Ejecutar el script "db-script.sql", luego de reemplazar la ruta de los archivos de la base de datos (son 2).Buscar el placeholder llamado [RUTA]
+
+Aplicación:
+-Configurar el website para ejecutarse en IIS, como aplicación web en un application pool con .Net CLR version v4.0.30319
+-En el archivo web.config de la instalación, hay que establecer el connection string hacia la base de datos
+-la URL de la aplicación será la del website donde se instale la aplicación más "/envios/envios.aspx". Ej.: http://localhost:55248/envios/envios.aspx

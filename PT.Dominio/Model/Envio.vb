@@ -80,7 +80,9 @@ Public Class EnvioValidator
         RuleFor(Function(x) x.ProveedorPaqueteria).NotEmpty().WithMessage("Debe especificarse el proveedor de paquetería").MaximumLength(50)
         RuleFor(Function(x) x.DireccionDestino).NotEmpty().MaximumLength(200)
         RuleFor(Function(x) x.Estado).NotEmpty()
-        RuleFor(Function(x) x.Fecha).NotNull().LessThan(Date.Today.AddDays(1)).WithMessage("La fecha de envío no puede ser una fecha futura")
+        RuleFor(Function(x) x.Fecha) _
+            .NotNull() _
+            .GreaterThanOrEqualTo(Date.Today.AddDays(1)).WithMessage("La fecha de envío no puede ser una fecha pasada").When(Function(x) x.ID = 0) 'sólo se valida durante el alta. Sería bueno encontrar una forma más limpia de determina si se trata de un alta
         Include(New CodigoSeguimientoEnvioValidator())
         RuleFor(Function(x) x.Detalle).NotNull()
         RuleForEach(Function(x) x.Detalle).SetValidator(New ItemEnvioValidator())
