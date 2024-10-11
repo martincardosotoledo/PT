@@ -118,18 +118,22 @@
                         </div>
                     </TitlePanel>
                     <DetailRow>
-                        <dx:ASPxGridView ID="gvDetalleEnvio" runat="server"
+                        <dx:ASPxGridView ID="gvDetalleEnvio" runat="server" Caption="Detalle"
                             OnBeforePerformDataSelect="gvDetalleEnvio_BeforePerformDataSelect">
                             <SettingsBehavior EnableRowHotTrack="true" />
                             <SettingsPager Mode="ShowAllRecords"></SettingsPager>
+                                <Settings ShowFooter="true" />
                             <Columns>
                                 <dx:GridViewDataTextColumn Caption="Descripción" FieldName="DescripcionBulto" SortIndex="0" SortOrder="Ascending">
                                 </dx:GridViewDataTextColumn>
-                                <dx:GridViewDataTextColumn Caption="Peso" FieldName="Peso" PropertiesTextEdit-DisplayFormatString="{0:N2}">
+                                <dx:GridViewDataTextColumn Caption="Peso" FieldName="Peso" PropertiesTextEdit-DisplayFormatString="{0:N2} kg">
                                 </dx:GridViewDataTextColumn>
                                 <dx:GridViewDataTextColumn Caption="Dimensiones" FieldName="Dimensiones">
                                 </dx:GridViewDataTextColumn>
                             </Columns>
+                            <TotalSummary>
+                                <dx:ASPxSummaryItem SummaryType="Sum" DisplayFormat="{0:N2} kg"  FieldName="Peso" />
+                            </TotalSummary>
                         </dx:ASPxGridView>
                     </DetailRow>
                 </Templates>

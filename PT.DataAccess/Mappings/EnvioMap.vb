@@ -15,6 +15,6 @@ Public Class EnvioMap
         Map(Function(x) x.Fecha, "FechaEnvio")
         Map(Function(x) x.CodigoSeguimiento, "CodigoSeguimiento")
 
-        HasMany(Function(x) x.Detalle).AsBag().Inverse().[Not].KeyNullable().[Not].KeyUpdate().KeyColumn("EnvioID").Cascade.AllDeleteOrphan().BatchSize(200)
+        HasMany(Function(x) x.Detalle).AsBag().[Not].KeyNullable().[Not].KeyUpdate().KeyColumn("EnvioID").Cascade.AllDeleteOrphan().BatchSize(200)
     End Sub
 End Class

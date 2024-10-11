@@ -64,7 +64,14 @@ Public Class EnvioService
             .ProveedorPaqueteria = envio.ProveedorPaqueteria,
             .EstadoEnvio = envio.Estado,
             .FechaEnvio = envio.Fecha,
-            .CodigoSeguimiento = envio.CodigoSeguimiento
+            .CodigoSeguimiento = envio.CodigoSeguimiento,
+            .Detalle = (From item In envio.Detalle
+                        Select New ItemEnvioEdicionDTO With {
+                           .ID = item.ID,
+                           .DescripcionBulto = item.DescripcionBulto,
+                           .Dimensiones = item.Dimensiones,
+                           .Peso = item.Peso
+                        }).ToList()
         }
     End Function
 
@@ -86,6 +93,22 @@ Public Class EnvioService
                 envio.Provincia = New ProvinciaRepositorio().LoadById(envioDTO.ProvinciaID)
                 envio.Fecha = envioDTO.FechaEnvio
                 envio.ProveedorPaqueteria = envioDTO.ProveedorPaqueteria
+
+                For Each item As ItemEnvio In envio.Detalle.Where(Function(ie) Not envioDTO.Detalle.Where(Function(ieDTO) ieDTO.ID = ie.ID).Any()).ToList()
+                    envio.QuitarItem(item)
+                Next
+
+                For Each itemDTO In envioDTO.Detalle
+
+                    If itemDTO.ID.HasValue Then
+                        Dim itemEnvio As ItemEnvio = envio.Detalle.Where(Function(i) i.ID = itemDTO.ID).Single()
+                        itemEnvio.DescripcionBulto = itemDTO.DescripcionBulto
+                        itemEnvio.Dimensiones = itemDTO.Dimensiones
+                        itemEnvio.Peso = itemDTO.Peso
+                    Else
+                        envio.AgregarItem(descripcionBulto:=itemDTO.DescripcionBulto, dimensiones:=itemDTO.Dimensiones, peso:=itemDTO.Peso)
+                    End If
+                Next
 
                 Call New EnvioValidator().ValidateAndThrow(envio)
 
@@ -109,13 +132,7 @@ Public Class EnvioEdicionDTO
 
     Public Property FechaEnvio As Date
 
-    'Private _detalle As IList(Of ItemEnvio)
-
-    'Public Overridable ReadOnly Property Detalle As IEnumerable(Of ItemEnvio)
-    '    Get
-    '        Return _detalle.AsEnumerable()
-    '    End Get
-    'End Property
+    Public Property Detalle As IList(Of ItemEnvioEdicionDTO)
 End Class
 
 Public Class EnvioEdicionVistaDTO
@@ -126,7 +143,16 @@ Public Class EnvioEdicionVistaDTO
     Public Property CodigoSeguimiento As String
 End Class
 
+<Serializable>
+Public Class ItemEnvioEdicionDTO
+    Public Property ID As Nullable(Of Integer)
 
+    Public Property DescripcionBulto As String
+
+    Public Property Peso As Decimal
+
+    Public Property Dimensiones As String
+End Class
 
 Public Class ItemDetalleEnvioDTO
 

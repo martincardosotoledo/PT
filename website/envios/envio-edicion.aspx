@@ -102,7 +102,7 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                        <dx:LayoutItem Caption="Proveedor de paquetería" ColSpan="2">
+                    <dx:LayoutItem Caption="Proveedor de paquetería" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
                                 <dx:ASPxTextBox ID="txtProveedorPaqueteria" runat="server" Width="100%" MaxLength="50">
@@ -124,17 +124,89 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Código de seguimiento" ColSpan="2">
+                    <dx:LayoutItem Caption="Estado">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxLabel ID="lblEstado" runat="server"></dx:ASPxLabel>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem Caption="Código de seguimiento">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
                                 <dx:ASPxLabel ID="lblCodigoSeguimiento" runat="server"></dx:ASPxLabel>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:LayoutItem Caption="Estado" ColSpan="2">
+                    <dx:EmptyLayoutItem Height="15" ColSpan="2"></dx:EmptyLayoutItem>
+                    <dx:LayoutItem Caption="Detalle" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxLabel ID="lblEstado" runat="server"></dx:ASPxLabel>
+                                <dx:ASPxGridView ID="gvDetalleEnvio" runat="server" ClientInstanceName="gvDetalleEnvio"
+                                    KeyFieldName="GridID"
+                                    OnDataBinding="gvDetalleEnvio_DataBinding"
+                                    OnRowInserting="gvDetalleEnvio_RowInserting"
+                                    OnRowDeleting="gvDetalleEnvio_RowDeleting"
+                                    OnRowUpdating="gvDetalleEnvio_RowUpdating">
+                                    <SettingsBehavior EnableRowHotTrack="true" />
+                                    <SettingsPager Mode="ShowAllRecords"></SettingsPager>
+                                    <Settings ShowFooter="true" />
+                                    <SettingsCommandButton>
+                                        <UpdateButton Text="Actualizar" RenderMode="Link"></UpdateButton>
+                                        <CancelButton Text="Cancelar" RenderMode="Link"></CancelButton>
+                                        <DeleteButton>
+                                            <Image Url="~/imagenes/Delete.Ico"
+                                                Height="15"
+                                                Width="15">
+                                            </Image>
+                                        </DeleteButton>
+                                        <EditButton RenderMode="Image">
+                                            <Image Url="~/imagenes/pen.ico"
+                                                Height="15"
+                                                Width="15">
+                                            </Image>
+                                        </EditButton>
+                                    </SettingsCommandButton>
+                                    <Columns>
+                                        <dx:GridViewCommandColumn ShowEditButton="true" ButtonRenderMode="Button">
+                                            <HeaderStyle HorizontalAlign="Center" />
+                                            <HeaderTemplate>
+                                                <dx:ASPxButton runat="server" ID="e" Text="" AutoPostBack="false" UseSubmitBehavior="false" RenderMode="Link" Visible="<%#Not gvDetalleEnvio.IsEditing %>"
+                                                    ClientSideEvents-Click="function(s, e){ gvDetalleEnvio.AddNewRow(); }">
+                                                    <Image Url="~/imagenes/add.ico" Height="15" Width="15"></Image>
+                                                </dx:ASPxButton>
+                                            </HeaderTemplate>
+                                        </dx:GridViewCommandColumn>
+                                        <dx:GridViewDataTextColumn Caption="Descripción" FieldName="DescripcionBulto" SortIndex="0" SortOrder="Ascending">
+                                            <PropertiesTextEdit MaxLength="200">
+                                                <ValidationSettings>
+                                                    <RequiredField IsRequired="true" ErrorText="Debe ingresar una descripción" />
+                                                </ValidationSettings>
+                                            </PropertiesTextEdit>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataSpinEditColumn Caption="Peso" FieldName="Peso" PropertiesSpinEdit-DisplayFormatString="{0:N2} kg">
+                                            <PropertiesSpinEdit DecimalPlaces="2" MaxLength="11" Width="100" MinValue="0.01" MaxValue="99999999.99">
+                                                <ValidationSettings>
+                                                    <RequiredField IsRequired="true" ErrorText="Debe ingresar un peso" />
+                                                </ValidationSettings>
+
+                                            </PropertiesSpinEdit>
+                                        </dx:GridViewDataSpinEditColumn>
+                                        <dx:GridViewDataTextColumn Caption="Dimensiones" FieldName="Dimensiones">
+                                            <PropertiesTextEdit MaxLength="50">
+                                                <ValidationSettings>
+                                                </ValidationSettings>
+                                            </PropertiesTextEdit>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewCommandColumn
+                                            ButtonType="Image"
+                                            ShowDeleteButton="true">
+                                        </dx:GridViewCommandColumn>
+                                    </Columns>
+                                    <TotalSummary>
+                                        <dx:ASPxSummaryItem SummaryType="Sum" DisplayFormat="{0:N2} kg" FieldName="Peso" />
+                                    </TotalSummary>
+                                </dx:ASPxGridView>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

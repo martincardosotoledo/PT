@@ -40,6 +40,21 @@ Public Class Envio
         End Get
     End Property
 
+    Public Overridable Sub QuitarItem(item As ItemEnvio)
+        If _detalle.Contains(item) Then
+            _detalle.Remove(item)
+        End If
+    End Sub
+
+    Public Overridable Sub AgregarItem(descripcionBulto As String, peso As Decimal, dimensiones As String)
+        Dim item As New ItemEnvio() With {
+            .DescripcionBulto = descripcionBulto,
+            .Peso = peso,
+            .Dimensiones = dimensiones
+        }
+
+        _detalle.Add(item)
+    End Sub
 
     Public Overridable Sub ActualizarEstado(nuevoEstado As String)
         Me.Estado = nuevoEstado
@@ -67,6 +82,8 @@ Public Class EnvioValidator
         RuleFor(Function(x) x.Estado).NotEmpty()
         RuleFor(Function(x) x.Fecha).NotNull().LessThan(Date.Today.AddDays(1)).WithMessage("La fecha de envío no puede ser una fecha futura")
         Include(New CodigoSeguimientoEnvioValidator())
+        RuleFor(Function(x) x.Detalle).NotNull()
+        RuleForEach(Function(x) x.Detalle).SetValidator(New ItemEnvioValidator())
     End Sub
 End Class
 

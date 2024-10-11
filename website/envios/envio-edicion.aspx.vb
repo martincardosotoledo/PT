@@ -1,4 +1,5 @@
-﻿
+﻿Option Explicit On
+
 Imports DevExpress.Web
 Imports PT.Services
 
@@ -12,6 +13,8 @@ Partial Class envios_envio_edicion
 
             If Me.IdEnvio.HasValue Then
                 _EnlazarEnvio()
+            Else
+                Me.Detalle = New List(Of ItemEnvioEdicionDTOParaGrilla)
             End If
         End If
     End Sub
@@ -26,15 +29,55 @@ Partial Class envios_envio_edicion
         End Get
     End Property
 
+    Private Property Detalle As List(Of ItemEnvioEdicionDTOParaGrilla)
+        Get
+            Return DirectCast(Session("envios_envio_edicion_Detalle"), IList(Of ItemEnvioEdicionDTOParaGrilla))
+        End Get
+        Set(value As List(Of ItemEnvioEdicionDTOParaGrilla))
+            Session("envios_envio_edicion_Detalle") = value
+        End Set
+    End Property
+
+    Public Class ItemEnvioEdicionDTOParaGrilla
+        Inherits ItemEnvioEdicionDTO
+
+        Public Sub New()
+            Me.GridID = Guid.NewGuid()
+        End Sub
+
+        Private _gridID As Guid
+
+        Public Property GridID As Guid
+            Private Set(value As Guid)
+                _gridID = value
+            End Set
+            Get
+                Return _gridID
+            End Get
+        End Property
+    End Class
+
+
     Private Sub _EnlazarEnvio()
         Dim envioDTO As EnvioEdicionVistaDTO = New EnvioService().TraerParaEdicion(Me.IdEnvio.Value)
 
         cmbCliente.Value = envioDTO.ClienteID
         txtDireccion.Value = envioDTO.DireccionDestino
+        txtProveedorPaqueteria.Value = envioDTO.ProveedorPaqueteria
         cmbProvincia.Value = envioDTO.ProvinciaID
         dtFecha.Value = envioDTO.FechaEnvio
         lblCodigoSeguimiento.Value = envioDTO.CodigoSeguimiento
         lblEstado.Value = envioDTO.EstadoEnvio
+
+        Me.Detalle = (From itemDTO In envioDTO.Detalle
+                      Select New ItemEnvioEdicionDTOParaGrilla With {
+                          .ID = itemDTO.ID,
+                          .DescripcionBulto = itemDTO.DescripcionBulto,
+                          .Peso = itemDTO.Peso,
+                          .Dimensiones = itemDTO.Dimensiones
+                     }).ToList()
+
+        gvDetalleEnvio.DataBind()
     End Sub
 
     Protected Sub cmbCliente_DataBinding(sender As Object, e As EventArgs)
@@ -59,6 +102,9 @@ Partial Class envios_envio_edicion
                 envioDTO.ProvinciaID = cmbProvincia.Value
                 envioDTO.FechaEnvio = dtFecha.Date
                 envioDTO.ProveedorPaqueteria = txtProveedorPaqueteria.Text.Trim()
+
+                envioDTO.Detalle = Me.Detalle.Cast(Of ItemEnvioEdicionDTO)().ToList()
+
                 Try
                     envioService.GuardarEnvio(envioDTO)
 
@@ -70,5 +116,43 @@ Partial Class envios_envio_edicion
 
             End If
         End If
+    End Sub
+
+    Protected Sub gvDetalleEnvio_DataBinding(sender As Object, e As EventArgs)
+        DirectCast(sender, ASPxGridView).DataSource = Me.Detalle
+    End Sub
+
+    Protected Sub gvDetalleEnvio_RowInserting(sender As Object, e As Data.ASPxDataInsertingEventArgs)
+        e.Cancel = True
+
+        Me.Detalle.Add(New ItemEnvioEdicionDTOParaGrilla() With {
+            .DescripcionBulto = e.NewValues("DescripcionBulto"),
+            .Dimensiones = e.NewValues("Dimensiones"),
+            .Peso = CDec(e.NewValues("Peso"))
+        })
+
+        gvDetalleEnvio.CancelEdit()
+    End Sub
+
+    Protected Sub gvDetalleEnvio_RowDeleting(sender As Object, e As Data.ASPxDataDeletingEventArgs)
+        Dim gridID As Guid = e.Keys(gvDetalleEnvio.KeyFieldName)
+        Dim itemDTO As ItemEnvioEdicionDTOParaGrilla = Me.Detalle.Where(Function(i) i.GridID = gridID).Single()
+        Me.Detalle.Remove(itemDTO)
+
+        e.Cancel = True
+    End Sub
+
+    Protected Sub gvDetalleEnvio_RowUpdating(sender As Object, e As Data.ASPxDataUpdatingEventArgs)
+        Dim gridID As Guid = e.Keys(gvDetalleEnvio.KeyFieldName)
+
+        Dim itemDTO As ItemEnvioEdicionDTOParaGrilla = Me.Detalle.Where(Function(i) i.GridID = gridID).Single()
+
+        itemDTO.DescripcionBulto = e.NewValues("DescripcionBulto")
+        itemDTO.Dimensiones = e.NewValues("Dimensiones")
+        itemDTO.Peso = CDec(e.NewValues("Peso"))
+
+        e.Cancel = True
+
+        gvDetalleEnvio.CancelEdit()
     End Sub
 End Class

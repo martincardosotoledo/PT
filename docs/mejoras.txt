@@ -18,3 +18,5 @@ Por ej. entidadBase podría tener un parametro genérico para el tipo del ID
 -mostrar los errores de forma más bonita que en una lista hecha a mano
 -capturar todos los errores y no solo ValidationException. Por ej. error en la conexxion al servidor, un handler que informe de un error general
 -agregué algunas columnas más
+-usar una clave unica para identificar cada página, que poder tener un session índependiente por instancia de página
+-los envíos deberían tener un código de envío
