@@ -15,7 +15,7 @@ namespace PT.WebAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet("obtener/{id}")]
+        [HttpGet("{id}")]
         public EnvioEdicionVistaDTO obtener(int id)
         {
             return new EnvioService().TraerParaEdicion(id);
