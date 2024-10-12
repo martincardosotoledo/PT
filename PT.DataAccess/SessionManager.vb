@@ -1,7 +1,9 @@
 ﻿Imports System.IO
 Imports FluentNHibernate.Cfg
+Imports FluentNHibernate.Cfg.Db
 Imports NHibernate
 Imports NHibernate.Context
+Imports NHibernate.Driver
 
 Public Class SessionManager
 
@@ -19,7 +21,7 @@ Public Class SessionManager
         Friend Shared ReadOnly NHibernateSessionManager As SessionManager = New SessionManager()
     End Class
 
-    Private Shared _sessionFactory As ISessionFactory = Nothing
+    Public Shared _sessionFactory As ISessionFactory = Nothing
 
     Public Sub BuildSessionFactories(ByVal appBasePath As String)
         Dim cfgDistribucion As NHibernate.Cfg.Configuration = New NHibernate.Cfg.Configuration()
@@ -27,7 +29,6 @@ Public Class SessionManager
 
         _sessionFactory = Fluently.Configure(cfgDistribucion).Mappings(Sub(m)
                                                                            m.FluentMappings.AddFromAssemblyOf(Of SessionManager)()
-                                                                           m.HbmMappings.AddFromAssemblyOf(Of SessionManager)()
                                                                        End Sub).BuildSessionFactory()
 
     End Sub

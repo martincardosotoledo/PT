@@ -1,0 +1,6 @@
+@PT.WebAPI_HostAddress = http://localhost:5099
+
+GET {{PT.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
