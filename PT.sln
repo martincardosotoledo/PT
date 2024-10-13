@@ -29,7 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CF669352-9E18-402A-BC43-F521AD22A4BD}"
 	ProjectSection(SolutionItems) = preProject
 		docs\db-script.sql = docs\db-script.sql
-		docs\documentacion del sistema.txt = docs\documentacion del sistema.txt
+		documentacion del sistema.txt = documentacion del sistema.txt
 		docs\instalación.txt = docs\instalación.txt
 		docs\mejoras.txt = docs\mejoras.txt
 		docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf = docs\Prueba Técnica VB .NET Paquetería v1.docx.pdf
